@@ -1,4 +1,4 @@
-import {Query, Resolver} from "type-graphql";
+import {Query, Resolver, Arg} from "type-graphql";
 import {Book} from "../types/Book";
 import {BookService} from "../../services/BookService";
 import {Inject} from "typedi";
@@ -9,8 +9,13 @@ export class BooksResolver {
     @Inject()
     private bookService: BookService;
 
-    @Query((returns) => [Book])
-    public async search() {
-        return this.bookService.getAllBooks(100, 0);
+    @Query(() => [Book])
+    public async searchBooks(@Arg('take') take: number, @Arg('skip') skip: number ) {
+        return this.bookService.getAllBooks(take, skip);
+    }
+
+    @Query(() => Number)
+    public async countBooks() {
+        return this.bookService.countAllBooks();
     }
 }
