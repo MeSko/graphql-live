@@ -10,7 +10,7 @@ export class Book {
     @Field()
     public title: string;
 
-    @Field({nullable: true})
+    @Field(() => Author, {nullable: true})
     public author?: Author;
 
     @Field({nullable: true})

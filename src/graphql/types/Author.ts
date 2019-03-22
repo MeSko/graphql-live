@@ -1,4 +1,5 @@
 import {Field, ObjectType} from "type-graphql";
+import {Book} from "./Book";
 
 @ObjectType()
 export class Author {
@@ -10,4 +11,7 @@ export class Author {
 
     @Field()
     public surname: string;
+
+    @Field(() => [Book], {nullable: true})
+    public books?: Book[]
 }

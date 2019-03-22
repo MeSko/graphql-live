@@ -15,7 +15,8 @@ void (async function bootstrap() {
         schema,
         cors: {
             maxAge: 1728000
-        }
+        },
+        tracing: true
     });
 
     // Start the server
