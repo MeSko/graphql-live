@@ -13,6 +13,6 @@ export class Book {
     @Field(() => Author, {nullable: true})
     public author?: Author;
 
-    @Field({nullable: true})
+    @Field(() => Cycle, {nullable: true})
     public cycle?: Cycle;
 }

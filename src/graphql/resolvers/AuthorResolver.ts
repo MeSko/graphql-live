@@ -1,17 +1,13 @@
-import {Query, Resolver, ResolverInterface, FieldResolver, Root} from "type-graphql";
-import {BookService} from "../../services/BookService";
-import {Inject} from "typedi";
+import {Query, Resolver, ResolverInterface, FieldResolver, Root, Ctx} from "type-graphql";
 import {Author} from "../types/Author";
+import {AuthorEntity} from "../../services/fakeDb";
+import {Loaders} from "../loaders";
 
 @Resolver(Author)
 export class AuthorResolver implements ResolverInterface<Author> {
-
-    @Inject()
-    private bookService: BookService;
-
     @FieldResolver()
-    public async books(@Root() author) {
-        return this.bookService.getAuthorBooks(author.id);
+    public async books(@Root() author: AuthorEntity, @Ctx('loaders') loaders: Loaders) {
+        return loaders.authorsBooksLoader.load(author.id);
     }
 
 }
